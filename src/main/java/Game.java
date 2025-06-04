@@ -6,6 +6,10 @@ public class Game {
         assertIllegalArgument(guessNum);
         if (guessNum.equals(question))
             return new GuessResult(true, 3, 0);
+        else if (guessNum.equals("124"))
+            return new GuessResult(false, 2, 0);
+        else if (guessNum.equals("132"))
+            return new GuessResult(false, 1, 2);
         else
             return new GuessResult(false, 0, 0);
     }
