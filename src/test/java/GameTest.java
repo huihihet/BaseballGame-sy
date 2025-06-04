@@ -17,18 +17,19 @@ class GameTest {
         assertNotNull(game);
     }
 
-    @Test
-    void throwIllegalArgumentException() {
-        assertIllegalArgument(null);
-        assertIllegalArgument("12");
-        assertIllegalArgument("1234");
-    }
-
     private void assertIllegalArgument(String guessNumber) {
         try {
             game.guess(guessNumber);
             fail();
         } catch (IllegalArgumentException e) {
         }
+    }
+
+    @Test
+    void throwIllegalArgumentException() {
+        assertIllegalArgument(null);
+        assertIllegalArgument("12");
+        assertIllegalArgument("1234");
+        assertIllegalArgument("12s");
     }
 }
