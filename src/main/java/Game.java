@@ -7,7 +7,7 @@ public class Game {
         if (guessNum.equals(question))
             return new GuessResult(true, 3, 0);
         else
-            return null;
+            return new GuessResult(false, 0, 0);
     }
 
     private static void assertIllegalArgument(String guessNum) {
