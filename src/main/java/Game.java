@@ -1,7 +1,13 @@
 public class Game {
 
-    public void guess(String guessNum) {
+    public String question;
+
+    public GuessResult guess(String guessNum) {
         assertIllegalArgument(guessNum);
+        if (guessNum.equals(question))
+            return new GuessResult(true, 3, 0);
+        else
+            return null;
     }
 
     private static void assertIllegalArgument(String guessNum) {
@@ -11,7 +17,7 @@ public class Game {
         if (guessNum.length() != 3)
             throw new IllegalArgumentException();
 
-        for (char c : guessNum.toCharArray()){
+        for (char c : guessNum.toCharArray()) {
             if (c < '0' || c > '9')
                 throw new IllegalArgumentException();
         }
