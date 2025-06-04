@@ -6,12 +6,28 @@ public class Game {
         assertIllegalArgument(guessNum);
         if (guessNum.equals(question))
             return new GuessResult(true, 3, 0);
-        else if (guessNum.equals("124"))
-            return new GuessResult(false, 2, 0);
-        else if (guessNum.equals("132"))
-            return new GuessResult(false, 1, 2);
         else
-            return new GuessResult(false, 0, 0);
+            return getUnmatchedResult(guessNum);
+    }
+
+    private GuessResult getUnmatchedResult(String guessNum) {
+        int strikes = 0;
+        int balls = 0;
+        char[] ansArr = question.toCharArray();
+        char[] guessArr = guessNum.toCharArray();
+        for (int i = 0; i < 3; i++) {
+            char ansChar = ansArr[i];
+            for (int j = 0; j < 3; j++) {
+                char guessChar = guessArr[j];
+                if (ansChar == guessChar) {
+                    if (i == j)
+                        strikes++;
+                    else
+                        balls++;
+                }
+            }
+        }
+        return new GuessResult(false, strikes, balls);
     }
 
     private static void assertIllegalArgument(String guessNum) {
@@ -21,10 +37,9 @@ public class Game {
         if (guessNum.length() != 3)
             throw new IllegalArgumentException();
 
-        for (char c : guessNum.toCharArray()) {
+        for (char c : guessNum.toCharArray())
             if (c < '0' || c > '9')
                 throw new IllegalArgumentException();
-        }
 
         if (isDupNum(guessNum))
             throw new IllegalArgumentException();
