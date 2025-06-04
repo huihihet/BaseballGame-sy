@@ -37,7 +37,7 @@ class GameTest {
     }
 
     private void generateQuestion(String num) {
-        game.question = num;
+        game.answer = num;
     }
 
     @Test
@@ -50,6 +50,10 @@ class GameTest {
     void returnUnmatchedNum() {
         generateQuestion("123");
         assertMatchedNum(game.guess("456"), false, 0, 0);
+        assertMatchedNum(game.guess("145"), false, 1, 0);
+        assertMatchedNum(game.guess("134"), false, 1, 1);
+        assertMatchedNum(game.guess("132"), false, 1, 2);
+        assertMatchedNum(game.guess("124"), false, 2, 0);
     }
 
     private static void assertMatchedNum(GuessResult result, boolean solved, int strikes, int balls) {
@@ -57,17 +61,5 @@ class GameTest {
         assertThat(result.isSolved()).isEqualTo(solved);
         assertThat(result.getStrikes()).isEqualTo(strikes);
         assertThat(result.getBalls()).isEqualTo(balls);
-    }
-
-    @Test
-    void returnUnmatchedNum2Strikes() {
-        generateQuestion("123");
-        assertMatchedNum(game.guess("124"), false, 2, 0);
-    }
-
-    @Test
-    void returnUnmatchedNum1Strikes2Balls() {
-        generateQuestion("123");
-        assertMatchedNum(game.guess("132"), false, 1, 2);
     }
 }
