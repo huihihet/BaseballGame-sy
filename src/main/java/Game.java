@@ -11,5 +11,11 @@ public class Game {
             if (c < '0' || c > '9')
                 throw new IllegalArgumentException();
         }
+
+        if (guessNum.charAt(0) == guessNum.charAt(1) ||
+                guessNum.charAt(1) == guessNum.charAt(2) ||
+                guessNum.charAt(0) == guessNum.charAt(2)){
+            throw new IllegalArgumentException();
+        }
     }
 }
