@@ -36,25 +36,26 @@ class GameTest {
         assertIllegalArgument("121");
     }
 
+    private void generateQuestion(String num) {
+        game.question = num;
+    }
+
     @Test
     void returnMatchedNum() {
-        game.question = "123";
-        GuessResult result = game.guess("123");
-
-        assertThat(result).isNotNull();
-        assertThat(result.isSolved()).isEqualTo(true);
-        assertThat(result.getStrikes()).isEqualTo(3);
-        assertThat(result.getBalls()).isEqualTo(0);
+        generateQuestion("123");
+        assertMatchedNum(game.guess("123"), true, 3, 0);
     }
 
     @Test
     void returnUnmatchedNum() {
-        game.question = "123";
-        GuessResult result = game.guess("456");
+        generateQuestion("123");
+        assertMatchedNum(game.guess("456"), false, 0, 0);
+    }
 
+    private static void assertMatchedNum(GuessResult result, boolean solved, int strikes, int balls) {
         assertThat(result).isNotNull();
-        assertThat(result.isSolved()).isEqualTo(false);
-        assertThat(result.getStrikes()).isEqualTo(0);
-        assertThat(result.getBalls()).isEqualTo(0);
+        assertThat(result.isSolved()).isEqualTo(solved);
+        assertThat(result.getStrikes()).isEqualTo(strikes);
+        assertThat(result.getBalls()).isEqualTo(balls);
     }
 }
