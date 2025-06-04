@@ -50,6 +50,8 @@ class GameTest {
     void returnUnmatchedNum() {
         generateQuestion("123");
         assertMatchedNum(game.guess("456"), false, 0, 0);
+        assertMatchedNum(game.guess("345"), false, 0, 1);
+        assertMatchedNum(game.guess("234"), false, 0, 2);
         assertMatchedNum(game.guess("145"), false, 1, 0);
         assertMatchedNum(game.guess("134"), false, 1, 1);
         assertMatchedNum(game.guess("132"), false, 1, 2);
